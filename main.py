@@ -27,13 +27,14 @@ def go():
 
 @app.route("/<result>")
 def show(result):
-    for u in url_list:
-        redi = next((u['longurl'] for key, value in u.items() if value == result), None)
-        if redi is not None:
-            break
-    if redi:
-        return redirect(redi)
-    else:
-        return "Not found",404
+  url_list=store()
+  for u in url_list:
+    redi = next((u['longurl'] for key, value in u.items() if value == result), None)
+    if redi is not None:
+      break
+  if redi:
+    return redirect(redi)
+  else:
+    return "Not found",404
 if __name__=="__main__":
     app.run(host='0.0.0.0',debug=True)
