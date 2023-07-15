@@ -1,11 +1,11 @@
 import mysql.connector
-
+import os
 def conn(q):
     global db,object
     db=mysql.connector.connect(
-        host="onlinedb.cd88md7c0vfy.eu-north-1.rds.amazonaws.com",
-        passwd='siren123',
-        user="admin",
+        host=os.environ['host_key'],
+        passwd=os.environ['pass_key'],
+        user=os.environ['admin_key'],
         database='url'
     )
     object=db.cursor()
@@ -27,9 +27,9 @@ def store():
 
 def add(shorturl,longurl):
   dataBase = mysql.connector.connect(
-      host="onlinedb.cd88md7c0vfy.eu-north-1.rds.amazonaws.com",
-      user="admin",
-      passwd="siren123",
+      host=os.environ['host_key'],
+      user=os.environ['admin_key'],
+      passwd=os.environ['pass_key'],
       database="url"
   )
   object = dataBase.cursor()
