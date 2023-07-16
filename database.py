@@ -1,39 +1,23 @@
-import mysql.connector
+import sqlalchemy as s
 import os
+
 def conn(q):
-    global db,object
-    db=mysql.connector.connect(
-        host=os.environ['host_key'],
-        passwd=os.environ['pass_key'],
-        user=os.environ['admin_key'],
-        database='url'
-    )
-    object=db.cursor()
-    object.execute(q)
-    all=object.fetchall()
-    return all
+  engine = s.create_engine(os.environ['var'])
+  global connection
+  connection=engine.connect()
+  result = connection.execute(s.text(q))
+  return result
 
 def store():
   myresult=conn(q="select * from url_shorts")
-  jobs_dict = []
-  for row in myresult:
-    job_dict = {}
-    for index, value in enumerate(row):
-      column_name = object.column_names[index]
-      job_dict[column_name] = value
-    jobs_dict.append(job_dict)
-  db.close()
-  return jobs_dict
+  column_names = myresult.keys()
+  result_list = [dict(zip(column_names, row)) for row in myresult.fetchall()]
+  connection.close()
+  return result_list
 
 def add(shorturl,longurl):
-  dataBase = mysql.connector.connect(
-      host=os.environ['host_key'],
-      user=os.environ['admin_key'],
-      passwd=os.environ['pass_key'],
-      database="url"
-  )
-  object = dataBase.cursor()
-  sql = f'''INSERT INTO url_shorts(shorturl, longurl)VALUES ('{shorturl}', '{longurl}')'''
-  object.execute(sql)
-  dataBase.commit()
-  dataBase.close()
+  engine = s.create_engine(os.environ['var'])
+  connection=engine.connect()
+  connection.execute(s.text("insert into url_shorts(shorturl,longurl) values(:x,:y)"),[{"x":f"{shorturl}", "y": f"{longurl}"}])
+  connection.commit()
+  connection.close()
