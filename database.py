@@ -8,7 +8,7 @@ def conn(q):
   result = connection.execute(s.text(q))
   return result
 
-def store():
+def fetch():
   myresult=conn(q="select * from url_shorts")
   column_names = myresult.keys()
   result_list = [dict(zip(column_names, row)) for row in myresult.fetchall()]
