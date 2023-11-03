@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='./style.css')}}">
+    <title>shorts</title>
+</head>
+
+<body>
+    <div class="test"></div>
+
+    <nav class="navbar">
+        <div class="head">
+            <img src="{{ url_for('static', filename='images/link.svg') }}" alt="link.svg" height="50" width="60">
+            <a href="{{url_for('main')}}">URL Byte</a>
+        </div>
+        <ul class="navItems">
+            <li class="navItem"><a href="#about">About</a></li>
+            <li class="navItem"><a href="#feature">Features</a></li>
+            <li class="navItem"><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="hamburgur">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+
+    <div class="root">
+        <main class="mainContent">
+            <!-- <img src="{{ url_for('static', filename='images/w.jpg') }}" alt=""> -->
+            <div class="mainHeading">
+                <h1 class="heading">A Simple Link, yet a valuable tool for <br> <span>Everyone.</span></h1>
+            </div>
+
+            <form class="form" action="{{ url_for('url') }}" method="POST">
+                <input type="url" name="mainUrl" placeholder="Enter the link here" value="" required>
+                <button id="shorturl" type="submit">Shorten URL</button>
+            </form>
+        </main>
+
+        <section id="about" class="about">
+            <h2 class=" allHeading">About URL Byte</h2>
+            <p>Welcome to URL Byte, your destination for efficient web address simplification. We value the
+                significance
+                of concise, clean links when sharing information. That's why URL Byte is here, offering the ultimate
+                solution for URL shortening and management. Join us to simplify, personalize, and succeed with your
+                web
+                links. Your one-stop solution for tidier and more effective URL sharing.</p>
+            <p>At URL Byte, we provide a user-friendly platform that allows you to shorten those complex, unwieldy
+                URLs
+                into manageable, bite-sized links. Our service is fast, reliable, and, most importantly, secure. We
+                prioritize your privacy and data integrity, so you can trust us to safeguard your shortened links.
+            </p>
+        </section>
+
+        <section id="feature" class="feature">
+            <h2 class=" allHeading">Features</h2>
+            <div class="features">
+                <div class="item">
+                    <div class="itemlogo">
+                        <img src="{{ url_for('static', filename='images/fast.svg') }}" alt="svg" height="40" width="40">
+                    </div>
+                    <h3>Fast and Reliable</h3>
+                    <p>Our URL shortening service is built
+                        on a robust infrastructure, ensuring
+                        that your shortened links are
+                        generated quickly and are
+                        available 24/7. Say goodbye to
+                        waiting for your URLs to be
+                        processed!</p>
+                </div>
+                <div class="item">
+                    <div class="itemlogo">
+                        <img src="{{ url_for('static', filename='images/no.svg') }}" alt="svg" height="40" width="40">
+                    </div>
+                    <h3>No Registration Required</h3>
+                    <p>You don't need to create an
+                        account to use our URL shortening
+                        service. We believe in providing a
+                        hassle-free experience, saving you
+                        time and effort.</p>
+                </div>
+                <div class="item">
+                    <div class="itemlogo">
+                        <img src="{{ url_for('static', filename='images/friend.svg') }}" alt="svg" height="40"
+                            width="40">
+                    </div>
+                    <h3>User-Friendly Interface</h3>
+                    <p>We understand the importance of
+                        simplicity. Our user-friendly
+                        interface allows you to shorten a
+                        URL with just a few clicks, making
+                        the
+                        process
+                        effortless and
+                        accessible to everyone.</p>
+                </div>
+                <div class="item">
+                    <div class="itemlogo">
+                        <img src="{{ url_for('static', filename='images/secure.svg') }}" alt="svg" height="40"
+                            width="40">
+                    </div>
+                    <h3>Safe and Secure</h3>
+                    <p>We prioritize the security of our
+                        users. Every link generated is
+                        scanned for potential malware or
+                        phishing threats, ensuring that you
+                        can share your links with
+                        confidence.</p>
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="contact">
+            <h2 class=" allHeading">Contact</h2>
+            <form action="\">
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="first-name">First name</label>
+                        <input type="text" id="first-name" name="first-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last name</label>
+                        <input type="text" id="last-name" name="last-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group" style="width: 100%;">
+                        <label for="message">Message</label>
+                        <input type="text" id="message" name="message" required>
+                    </div>
+                    <button class="submit-button" type="submit">Submit</button>
+                </div>
+            </form>
+        </section>
+    </div>
+    <footer>
+        <div class="head">
+            <img src="{{ url_for('static', filename='images/link.svg') }}" alt="link.svg" height="50" width="60">
+            <a href="{{url_for('main')}}">URL Byte</a>
+        </div>
+        <div class="last">
+            <hr>
+            <span>&#169; URL Byte. All right reserved.</span>
+        </div>
+
+    </footer>
+    <script>
+        const myForm = document.querySelector(".form");
+        const main = document.querySelector(".mainContent");
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard) {
+                navigator.clipboard
+                    .writeText(text)
+                    .then(() => {
+                        console.log("Text copied to clipboard");
+                    })
+                    .catch((err) => {
+                        console.error("Error copying text to clipboard: ", err);
+                    });
+            } else {
+                const textarea = document.createElement("textarea");
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textarea);
+                console.log("Text copied to clipboard");
+            }
+        }
+        "{% if shortURL %}"
+        let url = "{{ shortURL }}";
+        console.log(url)
+        myForm.style.display = "none";
+        const htmlToInsert = `
+<div class="form pseudo">
+<input type="url" name="mainUrl" id="mainUrl" placeholder="Enter the link here" value="${url}" required>
+<button id="shorturl" type="button"><a href="{{ url_for('main') }}">Copy URL</a></button>
+</div>
+`;
+        main.insertAdjacentHTML("beforeend", htmlToInsert);
+        const formToRemove = document.querySelector(".pseudo");
+        document.querySelector(".pseudo>button").addEventListener("click", function () {
+            copyToClipboard(url);
+            formToRemove.remove();
+            myForm.style.display = "";
+        });
+        "{% endif %}"
+        "{% if error %}"
+        const error=document.querySelector(".form>input")
+        error.value="URL is not valid"
+        error.classList.toggle('active')
+        setTimeout(() => {
+            error.value=""
+            error.classList.toggle('active')
+        }, 2000);
+        "{% endif %}"
+    </script>
+    <script src="{{url_for('static',filename='index.js')}}"></script>
+</body>
+
+</html>
