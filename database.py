@@ -13,7 +13,7 @@ def connector():
             "Failed to establish a database connection") from e
 
 
-def fetch():
+def fetch(): #fetch all
     myConnection = None
     try:
         myConnection = connector()
@@ -30,7 +30,7 @@ def fetch():
             print("connection closed")
 
 
-def fetch_shorturl(q,val):
+def fetch_shorturl(q,val): #fetch single value
     myConnection = None
     try:
         myConnection = connector()
@@ -43,7 +43,7 @@ def fetch_shorturl(q,val):
             myConnection.close()
             print("connection closed")
 
-def add(shorturl, longurl):
+def add(shorturl, longurl): #for add uel in database
     try:
         myConnection = connector()
         myConnection.execute(s.text("insert into url_shorts(shorturl,longurl) values(:x,:y)"), [
@@ -52,5 +52,19 @@ def add(shorturl, longurl):
         myConnection.close()
     except Exception as e:
         raise Exception("Failed to add data in the database") from e
-
+    
+def add_contact_details_with_postgres(first_name,last_name,email,number,message): #fro add conatact info in postgres
+    engine=s.create_engine("postgresql+psycopg2://sunil8521:b7QtwXlGe2oi@ep-proud-shadow-40799247.ap-southeast-1.aws.neon.tech:5432/user")
+    connection=engine.connect()
+  
+    params = {
+        'f': first_name,
+        'l': last_name,
+        'e': email,
+        'n': number,
+        'm': message
+    }
+    result=connection.execute(s.text("INSERT INTO contact (first_name,last_name,email,number,message) VALUES (:f,:l,:e,:n,:m)"),params)
+    connection.commit()
+    connection.close()
 # result = next((i['shorturl'] for i in url_list if long_url == i['longurl']),None)
