@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 import string
 import random
-from database import add, fetch_shorturl
+from database import add, fetch_shorturl,add_contact_details_with_postgres
 import validators
 app = Flask(__name__)
 
@@ -49,6 +49,17 @@ def show(result):
         return render_template('404.html')
     else:
         return redirect(str(check))
+    
+@app.route("/add", methods=['POST', 'GET'])
+def add_contact_info():
+    if request.method == "POST":
+        first_name=request.form["first-name"]
+        last_name=request.form["last-name"]
+        email=request.form["email"]
+        phone=request.form["phone"]
+        message=request.form["message"]
+        add_contact_details_with_postgres(first_name,last_name,email,phone,message)
+    return redirect('/')
 
 
 if __name__ == "__main__":
