@@ -194,7 +194,9 @@
             await copyToClipboard(url);
             formToRemove.remove();
             myForm.style.display = "";
-            window.location.href = "{{ url_for('main') }}";
+            setTimeout(() => {
+                window.location.href = "{{ url_for('main') }}";
+            }, 100);
         });
         "{% endif %}"
         "{% if error %}"
